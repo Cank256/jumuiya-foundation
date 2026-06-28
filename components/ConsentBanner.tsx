@@ -4,25 +4,19 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 export default function ConsentBanner() {
+  const [mounted, setMounted] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const consent = localStorage.getItem('cookie-consent');
     if (!consent) {
       setIsVisible(true);
     }
   }, []);
 
-  const handleAccept = () => {
-    localStorage.setItem('cookie-consent', 'accepted');
-    setIsVisible(false);
-  };
-
-  const handleDecline = () => {
-    localStorage.setItem('cookie-consent', 'declined');
-    setIsVisible(false);
-  };
-
+  // Don't render anything until after hydration — avoids server/client mismatch
+  if (!mounted) return null;
   if (!isVisible) return null;
 
   return (
@@ -46,4 +40,14 @@ export default function ConsentBanner() {
       </div>
     </div>
   );
+
+  function handleAccept() {
+    localStorage.setItem('cookie-consent', 'accepted');
+    setIsVisible(false);
+  }
+
+  function handleDecline() {
+    localStorage.setItem('cookie-consent', 'declined');
+    setIsVisible(false);
+  }
 }
