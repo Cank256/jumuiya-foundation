@@ -18,6 +18,7 @@ import {
   AlertCircle,
   CheckCircle,
   XCircle,
+  Mail,
 } from 'lucide-react';
 
 interface Job {
@@ -39,6 +40,7 @@ interface Job {
   application_process?: string;
   disclaimer?: string;
   apply_here?: string;
+  application_email?: string;
   has_document?: boolean;
   document_download_url?: string;
   document_name?: string;
@@ -319,7 +321,20 @@ export default function JobDetailPage() {
                 </p>
               )}
               <div className="flex flex-wrap gap-3">
-                {job.apply_here ? (
+                {job.application_email ? (
+                  <div className="flex items-center gap-3 bg-white/10 rounded-2xl px-5 py-3">
+                    <Mail className="w-5 h-5 text-gold flex-shrink-0" />
+                    <div>
+                      <p className="text-white/60 text-xs font-semibold uppercase tracking-wide mb-0.5">Submit applications to</p>
+                      <a
+                        href={`mailto:${job.application_email}`}
+                        className="text-gold font-semibold hover:underline break-all"
+                      >
+                        {job.application_email}
+                      </a>
+                    </div>
+                  </div>
+                ) : job.apply_here ? (
                   <a
                     href={job.apply_here}
                     target="_blank"
