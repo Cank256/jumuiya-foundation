@@ -276,10 +276,10 @@ export default function ImpactPage() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
-              href="/donate"
+              href="/partner"
               className="bg-gold hover:bg-amber-500 text-navy font-semibold px-7 py-3 rounded-full transition-colors"
             >
-              Donate Now
+              Get Involved
             </Link>
             <Link
               href="/partner"

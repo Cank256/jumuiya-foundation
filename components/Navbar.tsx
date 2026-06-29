@@ -47,7 +47,6 @@ const NAVIGATION = {
   "Get Involved": { items: [
     { label: "Careers", href: "/jobs" },
     { label: "Tenders", href: "/tenders" },
-    { label: "Donate", href: "/donate" },
     { label: "Volunteer", href: "/volunteer" },
     { label: "Partner With Us", href: "/partner" },
   ]},
@@ -140,7 +139,7 @@ export default function Navbar() {
           ))}
           
           <button className="text-navy hover:text-primary"><Search className="w-5 h-5" /></button>
-          <Link href="/donate" className="bg-primary hover:bg-primary-dark text-white px-5 py-2 rounded-full font-medium transition-colors shadow-sm hover:shadow-md">
+          <Link href="/partner" className="bg-primary hover:bg-primary-dark text-white px-5 py-2 rounded-full font-medium transition-colors shadow-sm hover:shadow-md">
             Support Us
           </Link>
         </nav>
@@ -185,7 +184,7 @@ export default function Navbar() {
                 </Link>
               </div>
             ))}
-            <Link href="/donate" onClick={() => setMobileMenuOpen(false)} className="mt-4 text-center bg-primary text-white py-3 rounded-lg font-medium">
+            <Link href="/partner" onClick={() => setMobileMenuOpen(false)} className="mt-4 text-center bg-primary text-white py-3 rounded-lg font-medium">
               Support Us
             </Link>
           </div>
