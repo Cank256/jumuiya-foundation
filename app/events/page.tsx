@@ -9,7 +9,7 @@ import {
   Clock,
   ArrowRight,
   Users,
-  AlertCircle,
+  Info,
   CalendarDays,
 } from 'lucide-react';
 
@@ -127,9 +127,12 @@ export default function EventsPage() {
 
         {/* Error */}
         {error && (
-          <div className="flex items-start gap-3 bg-red-50 border border-red-100 text-red-700 rounded-2xl px-6 py-5">
-            <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
-            <p>{error}</p>
+          <div className="text-center py-20 bg-gray-50 rounded-3xl border border-gray-100">
+            <Info className="w-14 h-14 mx-auto text-gray-300 mb-4" />
+            <h3 className="text-xl font-bold text-navy mb-2">Nothing to show just yet</h3>
+            <p className="text-gray-500 text-sm max-w-sm mx-auto">
+              Our upcoming events will appear here. Check back soon or contact us to learn about future programmes.
+            </p>
           </div>
         )}
 
