@@ -107,6 +107,9 @@ export default function Navbar() {
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-6 h-full">
+          <Link href="/" className="font-medium text-navy hover:text-primary transition-colors">
+            Home
+          </Link>
           {Object.entries(NAVIGATION).map(([key, value]) => (
             <div 
               key={key} 
@@ -157,6 +160,11 @@ export default function Navbar() {
       {mobileMenuOpen && (
         <div className="md:hidden absolute top-full left-0 w-full bg-paper shadow-xl border-t border-gray-100 max-h-[80vh] overflow-y-auto">
           <div className="p-4 flex flex-col gap-2">
+            <div className="border-b border-gray-200 py-2">
+              <Link href="/" className="block font-medium text-navy text-lg py-2" onClick={() => setMobileMenuOpen(false)}>
+                Home
+              </Link>
+            </div>
             {Object.entries(NAVIGATION).map(([key, value]) => (
               <div key={key} className="border-b border-gray-200 py-2">
                 <button 
