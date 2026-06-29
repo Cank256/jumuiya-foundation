@@ -21,8 +21,7 @@ import {
 } from 'lucide-react';
 
 interface Job {
-  id: string | number;
-  uuid: string;
+  id: string;
   title: string;
   department?: string;
   employment_type?: string;
