@@ -22,6 +22,7 @@ import {
 
 interface Job {
   id: string | number;
+  uuid: string;
   title: string;
   department?: string;
   employment_type?: string;

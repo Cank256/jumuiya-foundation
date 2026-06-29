@@ -16,6 +16,7 @@ import {
 
 export interface Job {
   id: string | number;
+  uuid: string;
   title: string;
   department?: string;
   employment_type?: string;
@@ -250,7 +251,7 @@ export default function CareersPage() {
 
                       <div className="flex-shrink-0">
                         <Link
-                          href={`/jobs/${job.id}`}
+                          href={`/jobs/${job.uuid}`}
                           className="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white text-sm font-medium px-5 py-2.5 rounded-full transition-colors"
                         >
                           View & Apply <ArrowRight className="w-3.5 h-3.5" />
