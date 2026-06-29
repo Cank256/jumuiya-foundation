@@ -36,7 +36,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <div className="font-semibold text-navy">Address</div>
-                  <div className="text-gray-600 text-sm mt-1">Kampala, Uganda, East Africa</div>
+                  <div className="text-gray-600 text-sm mt-1">Central, Kampala, Mutungo I, Zone 1A</div>
                 </div>
               </div>
 
@@ -46,7 +46,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <div className="font-semibold text-navy">Phone</div>
-                  <div className="text-gray-600 text-sm mt-1">+256 700 000 000</div>
+                  <div className="text-gray-600 text-sm mt-1">+256 740 466701</div>
                 </div>
               </div>
 
@@ -56,7 +56,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <div className="font-semibold text-navy">Email</div>
-                  <div className="text-gray-600 text-sm mt-1">info@jumuiyafoundation.org</div>
+                  <div className="text-gray-600 text-sm mt-1">jumuiya2@gmail.com</div>
                 </div>
               </div>
 

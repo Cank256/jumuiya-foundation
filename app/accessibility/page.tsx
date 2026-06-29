@@ -61,8 +61,8 @@ export default function AccessibilityPage() {
           <h2 className="text-xl font-bold text-navy">Feedback & Contact</h2>
           <p>We welcome feedback on the accessibility of our website. If you experience any barriers or would like to report an accessibility issue, please contact us:</p>
           <div className="bg-navy/5 rounded-xl p-5 text-sm space-y-1">
-            <p><strong>Email:</strong> info@jumuiyafoundation.org</p>
-            <p><strong>Phone:</strong> +256 700 000 000</p>
+            <p><strong>Email:</strong> jumuiya2@gmail.com</p>
+            <p><strong>Phone:</strong> +256 740 466701</p>
             <p><strong>Subject line:</strong> Accessibility Feedback</p>
           </div>
           <p>We aim to respond to all accessibility enquiries within 5 business days.</p>

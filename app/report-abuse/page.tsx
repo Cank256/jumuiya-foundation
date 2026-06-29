@@ -112,8 +112,8 @@ export default function ReportAbusePage() {
           <h2 className="text-xl font-bold text-navy">Direct Safeguarding Contact</h2>
           <p className="text-sm">If you would prefer to report directly to a person, you can contact our safeguarding lead:</p>
           <div className="bg-navy/5 rounded-xl p-5 text-sm space-y-1">
-            <p><strong>Email:</strong> safeguarding@jumuiyafoundation.org</p>
-            <p><strong>Phone:</strong> +256 700 000 000</p>
+            <p><strong>Email:</strong> jumuiya2@gmail.com</p>
+            <p><strong>Phone:</strong> +256 740 466701</p>
             <p className="text-gray-500 text-xs pt-1">Alternatively, concerns about JDF can also be raised with the relevant national safeguarding or child protection authority in Uganda.</p>
           </div>
         </section>

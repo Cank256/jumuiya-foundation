@@ -72,8 +72,8 @@ export default function TermsPage() {
           <h2 className="text-xl font-bold text-navy">10. Contact</h2>
           <div className="bg-navy/5 rounded-xl p-5 text-sm space-y-1">
             <p><strong>Jumuiya Development Foundation</strong></p>
-            <p>Kampala, Uganda</p>
-            <p>Email: info@jumuiyafoundation.org</p>
+            <p>Central, Kampala, Mutungo I, Zone 1A</p>
+            <p>Email: jumuiya2@gmail.com</p>
           </div>
         </section>
 

@@ -62,8 +62,8 @@ export default function Navbar() {
             <Link href="/partner" className="hover:text-gold transition-colors">Partner With Us</Link>
           </div>
           <div className="flex items-center gap-4">
-            <span>info@jumuiyafoundation.org</span>
-            <span>+256 700 000 000</span>
+            <span>jumuiya2@gmail.com</span>
+            <span>+256 740 466701</span>
             <span className="w-px h-4 bg-white/20" />
             <a href="https://facebook.com/jumuiyafoundation" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="hover:text-gold transition-colors"><Facebook className="w-3.5 h-3.5" /></a>
             <a href="https://twitter.com/jumuiyadev" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter" className="hover:text-gold transition-colors"><Twitter className="w-3.5 h-3.5" /></a>
@@ -77,10 +77,10 @@ export default function Navbar() {
         <Link href="/" className="flex items-center">
           <Image
             src="/images/Jumuiya_Logo.png"
-            alt="Jumuiya Development Foundation"
-            width={180}
+            alt="Jumuiya Development Foundation" 
+            width={150} 
             height={60}
-            className="object-contain h-12 w-auto mix-blend-multiply"
+            className="h-[100px] w-auto"
             priority
           />
         </Link>

@@ -73,7 +73,7 @@ export default function PrivacyPage() {
             <li>Withdraw consent for marketing communications at any time</li>
             <li>Lodge a complaint with a relevant data protection authority</li>
           </ul>
-          <p>To exercise any of these rights, contact us at <strong>info@jumuiyafoundation.org</strong>.</p>
+          <p>To exercise any of these rights, contact us at <strong>jumuiya2@gmail.com</strong>.</p>
         </section>
 
         <section className="space-y-3">
@@ -91,9 +91,9 @@ export default function PrivacyPage() {
           <p>For any questions or concerns about this Privacy Policy or how we handle your data:</p>
           <div className="bg-navy/5 rounded-xl p-5 text-sm space-y-1">
             <p><strong>Jumuiya Development Foundation</strong></p>
-            <p>Kampala, Uganda</p>
-            <p>Email: info@jumuiyafoundation.org</p>
-            <p>Phone: +256 700 000 000</p>
+            <p>Central, Kampala, Mutungo I, Zone 1A</p>
+            <p>Email: jumuiya2@gmail.com</p>
+            <p>Phone: +256 740 466701</p>
           </div>
         </section>
 

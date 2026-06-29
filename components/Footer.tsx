@@ -23,7 +23,7 @@ export default function Footer() {
               alt="Jumuiya Development Foundation"
               width={160}
               height={54}
-              className="object-contain h-10 w-auto brightness-0 invert"
+              className="object-contain h-[100px] w-auto brightness-0 invert"
             />
           </Link>
           <p className="text-gray-300 text-sm leading-relaxed">Jumuiya Development Foundation operates at the humanitarian-community-development nexus, empowering communities for lasting transformation.</p>
@@ -66,9 +66,9 @@ export default function Footer() {
         {/* Contact */}
         <div className="flex flex-col gap-3">
           <h3 className="font-semibold text-lg text-white mb-2 relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-12 after:h-0.5 after:bg-gold">Contact Us</h3>
-          <p className="text-gray-300 text-sm">Kampala, Uganda, East Africa</p>
-          <p className="text-gray-300 text-sm mt-1">📞 +256 700 000 000</p>
-          <p className="text-gray-300 text-sm">✉️ info@jumuiyafoundation.org</p>
+          <p className="text-gray-300 text-sm">Central, Kampala, Mutungo I, Zone 1A</p>
+          <p className="text-gray-300 text-sm mt-1">📞 +256 740 466701</p>
+          <p className="text-gray-300 text-sm">✉️ jumuiya2@gmail.com</p>
           <Link href="/contact" className="mt-3 inline-block bg-primary hover:bg-gold text-white text-xs font-medium px-4 py-2 rounded-full transition-colors w-fit">
             Send a Message
           </Link>
