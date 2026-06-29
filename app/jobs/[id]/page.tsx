@@ -59,7 +59,35 @@ const TYPE_LABELS: Record<string, string> = {
 function RichContent({ html }: { html: string }) {
   return (
     <div
-      className="prose prose-sm max-w-none text-gray-700 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-1 [&_p]:mb-3 [&_strong]:text-navy [&_h4]:font-bold [&_h4]:text-navy"
+      className={[
+        'prose prose-sm max-w-none text-gray-700',
+        // paragraphs
+        '[&_p]:mb-3 [&_p]:leading-relaxed',
+        // top-level unordered lists
+        '[&>ul]:list-disc [&>ul]:pl-6 [&>ul]:space-y-1.5 [&>ul]:mb-4',
+        // top-level ordered lists
+        '[&>ol]:list-decimal [&>ol]:pl-6 [&>ol]:space-y-1.5 [&>ol]:mb-4',
+        // first-level list items
+        '[&_li]:leading-relaxed [&_li]:text-gray-700',
+        // nested ul inside li (second level) — hollow bullet
+        '[&_li>ul]:list-[circle] [&_li>ul]:pl-5 [&_li>ul]:mt-1.5 [&_li>ul]:space-y-1',
+        // nested ol inside li (second level)
+        '[&_li>ol]:list-[lower-alpha] [&_li>ol]:pl-5 [&_li>ol]:mt-1.5 [&_li>ol]:space-y-1',
+        // third level nested
+        '[&_li>ul>li>ul]:list-[square] [&_li>ul>li>ul]:pl-5 [&_li>ul>li>ul]:mt-1 [&_li>ul>li>ul]:space-y-0.5',
+        '[&_li>ol>li>ol]:list-[lower-roman] [&_li>ol>li>ol]:pl-5 [&_li>ol>li>ol]:mt-1',
+        // headings inside rich content
+        '[&_h2]:text-lg [&_h2]:font-bold [&_h2]:text-navy [&_h2]:mt-5 [&_h2]:mb-2',
+        '[&_h3]:text-base [&_h3]:font-bold [&_h3]:text-navy [&_h3]:mt-4 [&_h3]:mb-2',
+        '[&_h4]:text-sm [&_h4]:font-bold [&_h4]:text-navy [&_h4]:uppercase [&_h4]:tracking-wide [&_h4]:mt-4 [&_h4]:mb-1.5',
+        // inline emphasis
+        '[&_strong]:font-semibold [&_strong]:text-navy',
+        '[&_em]:italic [&_em]:text-gray-600',
+        // blockquote (occasionally used in job descriptions)
+        '[&_blockquote]:border-l-4 [&_blockquote]:border-gold [&_blockquote]:pl-4 [&_blockquote]:text-gray-500 [&_blockquote]:italic [&_blockquote]:my-4',
+        // horizontal rule
+        '[&_hr]:border-gray-200 [&_hr]:my-4',
+      ].join(' ')}
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );
@@ -69,7 +97,7 @@ function Section({ title, html, plain }: { title: string; html?: string; plain?:
   if (!html && !plain) return null;
   return (
     <section>
-      <h3 className="text-xl font-bold text-navy mb-3">{title}</h3>
+      <h3 className="text-xl font-bold text-navy mb-2">{title}</h3>
       <div className="w-10 h-0.5 bg-gold mb-5" />
       {html ? <RichContent html={html} /> : <p className="text-gray-700 leading-relaxed">{plain}</p>}
     </section>
@@ -264,14 +292,31 @@ export default function JobDetailPage() {
         </div>
 
         {/* Content sections */}
-        <div className="space-y-10">
-          <Section title="Job Description" html={job.description} />
-          <Section title="Purpose of the Role" html={job.purpose_of_role} />
-          <Section title="Key Responsibilities" html={job.responsibilities} />
-          <Section title="Qualifications & Experience" html={job.requirements} />
-          <Section title="Core Competencies" html={job.core_competencies} />
-          <Section title="Application Requirements" html={job.application_requirements} />
-        </div>
+        {[
+          { title: 'Job Description', html: job.description },
+          { title: 'Purpose of the Role', html: job.purpose_of_role },
+          { title: 'Key Responsibilities', html: job.responsibilities },
+          { title: 'Qualifications & Experience', html: job.requirements },
+          { title: 'Core Competencies', html: job.core_competencies },
+          { title: 'Application Requirements', html: job.application_requirements },
+        ].filter((s) => s.html).length > 0 && (
+          <div className="rounded-2xl border border-gray-100 bg-white shadow-sm divide-y divide-gray-100 overflow-hidden">
+            {[
+              { title: 'Job Description', html: job.description },
+              { title: 'Purpose of the Role', html: job.purpose_of_role },
+              { title: 'Key Responsibilities', html: job.responsibilities },
+              { title: 'Qualifications & Experience', html: job.requirements },
+              { title: 'Core Competencies', html: job.core_competencies },
+              { title: 'Application Requirements', html: job.application_requirements },
+            ]
+              .filter((s) => s.html)
+              .map((s) => (
+                <div key={s.title} className="px-8 py-8">
+                  <Section title={s.title} html={s.html} />
+                </div>
+              ))}
+          </div>
+        )}
 
         {/* Document download */}
         {job.has_document && job.document_download_url && (
