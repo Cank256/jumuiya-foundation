@@ -4,14 +4,16 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function GET(
   _request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   if (!API_URL) {
     return NextResponse.json({ error: 'API URL not configured' }, { status: 503 });
   }
 
+  const { id } = await params;
+
   try {
-    const res = await fetch(`${API_URL}/news/${params.id}`, {
+    const res = await fetch(`${API_URL}/news/${id}`, {
       next: { revalidate: 60 },
       headers: { Accept: 'application/json' },
     });
