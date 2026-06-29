@@ -1,0 +1,28 @@
+import { NextResponse } from 'next/server';
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+export async function GET(
+  _request: Request,
+  { params }: { params: { id: string } }
+) {
+  if (!API_URL) {
+    return NextResponse.json({ error: 'API URL not configured' }, { status: 503 });
+  }
+
+  try {
+    const res = await fetch(`${API_URL}/news/${params.id}`, {
+      next: { revalidate: 60 },
+      headers: { Accept: 'application/json' },
+    });
+
+    if (!res.ok) {
+      return NextResponse.json({ error: 'Article not found' }, { status: res.status });
+    }
+
+    const data = await res.json();
+    return NextResponse.json(data);
+  } catch {
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+  }
+}
