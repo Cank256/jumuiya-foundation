@@ -10,7 +10,9 @@ function AnalyticsTracker() {
 
   useEffect(() => {
     if (pathname) {
-      const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : '');
+      const url =
+        pathname +
+        (searchParams?.toString() ? `?${searchParams.toString()}` : '');
       trackPageView(url, document.title || '');
     }
   }, [pathname, searchParams]);
@@ -18,7 +20,11 @@ function AnalyticsTracker() {
   return null;
 }
 
-export default function AnalyticsProvider({ children }: { children: React.ReactNode }) {
+export default function AnalyticsProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <>
       <Suspense fallback={null}>

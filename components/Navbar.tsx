@@ -47,7 +47,6 @@ const NAVIGATION = {
   "Get Involved": { items: [
     { label: "Careers", href: "/jobs" },
     { label: "Tenders", href: "/tenders" },
-    { label: "Volunteer", href: "/volunteer" },
     { label: "Partner With Us", href: "/partner" },
   ]},
 };

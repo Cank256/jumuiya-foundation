@@ -58,14 +58,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.variable} font-sans bg-paper text-navy min-h-screen flex flex-col`} suppressHydrationWarning>
-        <AnalyticsProvider>
-          <Navbar />
-          <main className="flex-grow">
-            {children}
-          </main>
-          <Footer />
-          <ConsentBanner />
-        </AnalyticsProvider>
+          <AnalyticsProvider>
+            <Navbar />
+            <main className="flex-grow">
+              {children}
+            </main>
+            <Footer />
+            <ConsentBanner />
+          </AnalyticsProvider>
         <Analytics />
         <SpeedInsights />
       </body>
