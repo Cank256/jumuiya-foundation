@@ -1,13 +1,31 @@
-import { Metadata } from 'next';
+'use client';
+
+import { useEffect, useState } from 'react';
 import PageTemplate from '@/components/PageTemplate';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, TrendingUp, Users, BookOpen, Heart, Leaf, Shield } from 'lucide-react';
+import {
+  ArrowRight,
+  TrendingUp,
+  Users,
+  BookOpen,
+  Heart,
+  Leaf,
+  Shield,
+  Download,
+  AlertCircle,
+} from 'lucide-react';
 
-export const metadata: Metadata = {
-  title: 'Our Impact | Jumuiya Development Foundation',
-  description: 'Discover the real-world impact of Jumuiya Development Foundation across Uganda — stories, data, and annual reports.',
-};
+interface AnnualReport {
+  id: string | number;
+  label?: string;
+  title?: string;
+  year?: string;
+  file_size?: string;
+  formatted_file_size?: string;
+  download_url?: string;
+  href?: string;
+}
 
 const STATS = [
   { icon: <TrendingUp className="w-6 h-6" />, value: '100+', label: 'Projects delivered across Uganda' },
@@ -22,13 +40,15 @@ const STORIES = [
   {
     name: 'Grace, Northern Uganda',
     programme: 'Community Enterprise',
-    quote: 'Through the enterprise training I started a small tailoring business. I now employ two other women from my village.',
+    quote:
+      'Through the enterprise training I started a small tailoring business. I now employ two other women from my village.',
     image: '/images/jdf/testimonial-1.jpg',
   },
   {
     name: 'Samuel, Eastern Uganda',
     programme: 'Education & Skills',
-    quote: 'The literacy programme helped me finish school. I am now mentoring other young people in my community.',
+    quote:
+      'The literacy programme helped me finish school. I am now mentoring other young people in my community.',
     image: '/images/jdf/testimonial-4.jpg',
   },
   {
@@ -39,18 +59,54 @@ const STORIES = [
   },
 ];
 
-const REPORTS = [
-  { label: '2024 / 2025 Annual Report', href: '#', size: 'PDF · 4.2 MB' },
-  { label: '2023 / 2024 Annual Report', href: '#', size: 'PDF · 3.8 MB' },
-  { label: '2022 / 2023 Annual Report', href: '#', size: 'PDF · 3.5 MB' },
-  { label: '2021 / 2022 Annual Report', href: '#', size: 'PDF · 3.1 MB' },
-  { label: '2019 / 2020 Annual Report', href: '#', size: 'PDF · 2.9 MB' },
-  { label: '2018 / 2019 Annual Report', href: '#', size: 'PDF · 2.6 MB' },
-  { label: '2017 / 2018 Annual Report', href: '#', size: 'PDF · 2.4 MB' },
-  { label: '2016 / 2017 Annual Report', href: '#', size: 'PDF · 2.1 MB' },
+// Fallback static reports used when the API is unavailable
+const FALLBACK_REPORTS: AnnualReport[] = [
+  { id: 1, label: '2024 / 2025 Annual Report', formatted_file_size: 'PDF · 4.2 MB', href: '#' },
+  { id: 2, label: '2023 / 2024 Annual Report', formatted_file_size: 'PDF · 3.8 MB', href: '#' },
+  { id: 3, label: '2022 / 2023 Annual Report', formatted_file_size: 'PDF · 3.5 MB', href: '#' },
+  { id: 4, label: '2021 / 2022 Annual Report', formatted_file_size: 'PDF · 3.1 MB', href: '#' },
+  { id: 5, label: '2019 / 2020 Annual Report', formatted_file_size: 'PDF · 2.9 MB', href: '#' },
+  { id: 6, label: '2018 / 2019 Annual Report', formatted_file_size: 'PDF · 2.6 MB', href: '#' },
+  { id: 7, label: '2017 / 2018 Annual Report', formatted_file_size: 'PDF · 2.4 MB', href: '#' },
+  { id: 8, label: '2016 / 2017 Annual Report', formatted_file_size: 'PDF · 2.1 MB', href: '#' },
 ];
 
+function reportLabel(r: AnnualReport) {
+  return r.label ?? r.title ?? (r.year ? `${r.year} Annual Report` : 'Annual Report');
+}
+
+function reportSize(r: AnnualReport) {
+  return r.formatted_file_size ?? r.file_size ?? 'PDF';
+}
+
+function reportHref(r: AnnualReport) {
+  return r.download_url ?? r.href ?? '#';
+}
+
 export default function ImpactPage() {
+  const [reports, setReports] = useState<AnnualReport[]>([]);
+  const [reportsLoading, setReportsLoading] = useState(true);
+  const [reportsError, setReportsError] = useState(false);
+
+  useEffect(() => {
+    async function fetchReports() {
+      try {
+        setReportsLoading(true);
+        const res = await fetch('/api/annual-reports');
+        if (!res.ok) throw new Error('Failed');
+        const data = await res.json();
+        const items: AnnualReport[] = data.data ?? data;
+        setReports(items.length ? items : FALLBACK_REPORTS);
+      } catch {
+        setReportsError(true);
+        setReports(FALLBACK_REPORTS);
+      } finally {
+        setReportsLoading(false);
+      }
+    }
+    fetchReports();
+  }, []);
+
   return (
     <PageTemplate
       title="Our Impact"
@@ -65,7 +121,10 @@ export default function ImpactPage() {
           <div className="w-16 h-1 bg-gold mb-10" />
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
             {STATS.map((stat, idx) => (
-              <div key={idx} className="bg-white rounded-2xl p-7 border border-gray-100 shadow-sm flex flex-col items-center text-center gap-3">
+              <div
+                key={idx}
+                className="bg-white rounded-2xl p-7 border border-gray-100 shadow-sm flex flex-col items-center text-center gap-3"
+              >
                 <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center">
                   {stat.icon}
                 </div>
@@ -82,12 +141,20 @@ export default function ImpactPage() {
             <h2 className="text-3xl font-bold text-navy">How We Measure Change</h2>
             <div className="w-16 h-1 bg-gold" />
             <p>
-              For JDF, evidence is critical for any intervention. We leverage research and evidence to inform decisions and actions. Through advocacy, we educate, connect, amplify and mobilise voices for policy change.
+              For JDF, evidence is critical for any intervention. We leverage research and evidence to
+              inform decisions and actions. Through advocacy, we educate, connect, amplify, and mobilise
+              voices for policy change.
             </p>
             <p>
-              Our twin elements of research and advocacy help us to learn about our communities, the issues they face, and how we can work together to influence the conversation for policy change. We track progress across all six programme areas using community-defined indicators and independent evaluations.
+              Our twin elements of research and advocacy help us to learn about our communities, the issues
+              they face, and how we can work together to influence the conversation for policy change. We
+              track progress across all six programme areas using community-defined indicators and
+              independent evaluations.
             </p>
-            <Link href="/what-we-do" className="inline-flex items-center gap-2 text-primary font-semibold hover:text-gold transition-colors">
+            <Link
+              href="/what-we-do"
+              className="inline-flex items-center gap-2 text-primary font-semibold hover:text-gold transition-colors"
+            >
               See what we do <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -112,13 +179,26 @@ export default function ImpactPage() {
           <div className="w-16 h-1 bg-gold mb-10" />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {STORIES.map((story, idx) => (
-              <div key={idx} className="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 flex flex-col">
+              <div
+                key={idx}
+                className="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 flex flex-col"
+              >
                 <div className="relative h-52 bg-gray-100">
-                  <Image src={story.image} alt={story.name} fill sizes="(max-width:768px) 100vw, 33vw" className="object-cover object-top" />
+                  <Image
+                    src={story.image}
+                    alt={story.name}
+                    fill
+                    sizes="(max-width:768px) 100vw, 33vw"
+                    className="object-cover object-top"
+                  />
                 </div>
                 <div className="p-6 flex flex-col flex-grow">
-                  <span className="text-xs font-semibold text-primary uppercase tracking-wider mb-3">{story.programme}</span>
-                  <blockquote className="text-gray-700 italic leading-relaxed flex-grow">"{story.quote}"</blockquote>
+                  <span className="text-xs font-semibold text-primary uppercase tracking-wider mb-3">
+                    {story.programme}
+                  </span>
+                  <blockquote className="text-gray-700 italic leading-relaxed flex-grow">
+                    &ldquo;{story.quote}&rdquo;
+                  </blockquote>
                   <div className="mt-4 font-semibold text-navy text-sm">— {story.name}</div>
                 </div>
               </div>
@@ -130,35 +210,83 @@ export default function ImpactPage() {
         <section id="annual-reports">
           <h2 className="text-3xl font-bold text-navy mb-3">Annual Reports</h2>
           <div className="w-16 h-1 bg-gold mb-10" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {REPORTS.map((report, idx) => (
-              <a
-                key={idx}
-                href={report.href}
-                className="flex items-center justify-between bg-white border border-gray-100 rounded-xl px-6 py-4 shadow-sm hover:shadow-md hover:border-primary/30 transition-all group"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center text-xs font-bold">PDF</div>
-                  <div>
-                    <div className="font-medium text-navy group-hover:text-primary transition-colors">{report.label}</div>
-                    <div className="text-xs text-gray-400 mt-0.5">{report.size}</div>
+
+          {reportsLoading && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[1, 2, 3, 4].map((i) => (
+                <div
+                  key={i}
+                  className="animate-pulse flex items-center gap-3 bg-white border border-gray-100 rounded-xl px-6 py-4"
+                >
+                  <div className="w-10 h-10 rounded-lg bg-gray-200 flex-shrink-0" />
+                  <div className="flex-1 space-y-2">
+                    <div className="h-4 bg-gray-200 rounded w-3/4" />
+                    <div className="h-3 bg-gray-100 rounded w-1/3" />
                   </div>
                 </div>
-                <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-primary transition-colors" />
-              </a>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
+
+          {!reportsLoading && reportsError && (
+            <div className="flex items-start gap-3 bg-amber-50 border border-amber-100 text-amber-700 rounded-2xl px-6 py-4 mb-6 text-sm">
+              <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
+              <span>Showing archived reports. Live data unavailable right now.</span>
+            </div>
+          )}
+
+          {!reportsLoading && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {reports.map((report) => {
+                const href = reportHref(report);
+                const isExternal = href !== '#';
+                return (
+                  <a
+                    key={report.id}
+                    href={href}
+                    target={isExternal ? '_blank' : undefined}
+                    rel={isExternal ? 'noopener noreferrer' : undefined}
+                    className="flex items-center justify-between bg-white border border-gray-100 rounded-xl px-6 py-4 shadow-sm hover:shadow-md hover:border-primary/30 transition-all group"
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center text-xs font-bold flex-shrink-0">
+                        PDF
+                      </div>
+                      <div className="min-w-0">
+                        <div className="font-medium text-navy group-hover:text-primary transition-colors truncate">
+                          {reportLabel(report)}
+                        </div>
+                        <div className="text-xs text-gray-400 mt-0.5">{reportSize(report)}</div>
+                      </div>
+                    </div>
+                    <Download className="w-4 h-4 text-gray-400 group-hover:text-primary transition-colors flex-shrink-0 ml-3" />
+                  </a>
+                );
+              })}
+            </div>
+          )}
         </section>
 
         {/* CTA */}
         <section className="bg-navy rounded-3xl p-10 text-center text-white">
           <h2 className="text-2xl font-bold mb-3">Help Us Create More Impact</h2>
           <p className="text-gray-300 max-w-xl mx-auto mb-6">
-            Every contribution supports communities in Uganda to build resilience, access education, and shape their own futures.
+            Every contribution supports communities in Uganda to build resilience, access education,
+            and shape their own futures.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/donate" className="bg-gold hover:bg-amber-500 text-navy font-semibold px-7 py-3 rounded-full transition-colors">Donate Now</Link>
-            <Link href="/partner" className="border border-white/30 hover:bg-white/10 text-white px-7 py-3 rounded-full transition-colors">Become a Partner</Link>
+            <Link
+              href="/donate"
+              className="bg-gold hover:bg-amber-500 text-navy font-semibold px-7 py-3 rounded-full transition-colors"
+            >
+              Donate Now
+            </Link>
+            <Link
+              href="/partner"
+              className="border border-white/30 hover:bg-white/10 text-white px-7 py-3 rounded-full transition-colors"
+            >
+              Become a Partner
+            </Link>
           </div>
         </section>
 

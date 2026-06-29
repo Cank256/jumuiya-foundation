@@ -45,6 +45,8 @@ const NAVIGATION = {
     { label: "Annual Reports", href: "/impact#annual-reports" },
   ]},
   "Get Involved": { items: [
+    { label: "Careers", href: "/jobs" },
+    { label: "Tenders", href: "/tenders" },
     { label: "Donate", href: "/donate" },
     { label: "Volunteer", href: "/volunteer" },
     { label: "Partner With Us", href: "/partner" },

@@ -76,6 +76,8 @@ export default function Footer() {
         {/* Get Involved */}
         <div className="flex flex-col gap-3">
           <h3 className="font-semibold text-lg text-white mb-2 relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-12 after:h-0.5 after:bg-gold">Get Involved</h3>
+          <Link href="/jobs" className="text-gray-300 hover:text-gold transition-colors text-sm">Careers</Link>
+          <Link href="/tenders" className="text-gray-300 hover:text-gold transition-colors text-sm">Tenders</Link>
           <Link href="/donate" className="text-gray-300 hover:text-gold transition-colors text-sm">Donate / Support</Link>
           <Link href="/volunteer" className="text-gray-300 hover:text-gold transition-colors text-sm">Volunteer With Us</Link>
           <Link href="/partner" className="text-gray-300 hover:text-gold transition-colors text-sm">Become a Partner</Link>
