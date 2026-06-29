@@ -13,7 +13,7 @@ import {
   Leaf,
   Shield,
   Download,
-  AlertCircle,
+  FileText,
 } from 'lucide-react';
 
 interface AnnualReport {
@@ -59,17 +59,7 @@ const STORIES = [
   },
 ];
 
-// Fallback static reports used when the API is unavailable
-const FALLBACK_REPORTS: AnnualReport[] = [
-  { id: 1, label: '2024 / 2025 Annual Report', formatted_file_size: 'PDF · 4.2 MB', href: '#' },
-  { id: 2, label: '2023 / 2024 Annual Report', formatted_file_size: 'PDF · 3.8 MB', href: '#' },
-  { id: 3, label: '2022 / 2023 Annual Report', formatted_file_size: 'PDF · 3.5 MB', href: '#' },
-  { id: 4, label: '2021 / 2022 Annual Report', formatted_file_size: 'PDF · 3.1 MB', href: '#' },
-  { id: 5, label: '2019 / 2020 Annual Report', formatted_file_size: 'PDF · 2.9 MB', href: '#' },
-  { id: 6, label: '2018 / 2019 Annual Report', formatted_file_size: 'PDF · 2.6 MB', href: '#' },
-  { id: 7, label: '2017 / 2018 Annual Report', formatted_file_size: 'PDF · 2.4 MB', href: '#' },
-  { id: 8, label: '2016 / 2017 Annual Report', formatted_file_size: 'PDF · 2.1 MB', href: '#' },
-];
+// Hardcoded fallback removed — annual reports are loaded exclusively from the backend
 
 function reportLabel(r: AnnualReport) {
   return r.label ?? r.title ?? (r.year ? `${r.year} Annual Report` : 'Annual Report');
@@ -96,10 +86,9 @@ export default function ImpactPage() {
         if (!res.ok) throw new Error('Failed');
         const data = await res.json();
         const items: AnnualReport[] = data.data ?? data;
-        setReports(items.length ? items : FALLBACK_REPORTS);
+        setReports(items);
       } catch {
         setReportsError(true);
-        setReports(FALLBACK_REPORTS);
       } finally {
         setReportsLoading(false);
       }
@@ -229,13 +218,26 @@ export default function ImpactPage() {
           )}
 
           {!reportsLoading && reportsError && (
-            <div className="flex items-start gap-3 bg-amber-50 border border-amber-100 text-amber-700 rounded-2xl px-6 py-4 mb-6 text-sm">
-              <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
-              <span>Showing archived reports. Live data unavailable right now.</span>
+            <div className="text-center py-20 bg-gray-50 rounded-3xl border border-gray-100">
+              <FileText className="w-14 h-14 mx-auto text-gray-300 mb-4" />
+              <h3 className="text-xl font-bold text-navy mb-2">Nothing to show just yet</h3>
+              <p className="text-gray-500 text-sm max-w-sm mx-auto">
+                Annual reports will appear here once they are published.
+              </p>
             </div>
           )}
 
-          {!reportsLoading && (
+          {!reportsLoading && !reportsError && reports.length === 0 && (
+            <div className="text-center py-20 bg-gray-50 rounded-3xl border border-gray-100">
+              <FileText className="w-14 h-14 mx-auto text-gray-300 mb-4" />
+              <h3 className="text-xl font-bold text-navy mb-2">No reports published yet</h3>
+              <p className="text-gray-500 text-sm max-w-sm mx-auto">
+                Annual reports will appear here once they are published.
+              </p>
+            </div>
+          )}
+
+          {!reportsLoading && !reportsError && reports.length > 0 && (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {reports.map((report) => {
                 const href = reportHref(report);
