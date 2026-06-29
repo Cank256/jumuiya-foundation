@@ -3,7 +3,28 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Menu, X, Search, ChevronDown, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { Menu, X, Search, ChevronDown } from 'lucide-react';
+
+// X (Twitter) icon SVG
+const XIcon = () => (
+  <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z" />
+  </svg>
+);
+
+// TikTok icon SVG
+const TikTokIcon = () => (
+  <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.19 8.19 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z" />
+  </svg>
+);
+
+// Facebook icon SVG
+const FacebookIcon = () => (
+  <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.884v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z" />
+  </svg>
+);
 
 const NAVIGATION = {
   "About Us": { items: [
@@ -30,7 +51,6 @@ const NAVIGATION = {
   ]},
 };
 
-// Top-level direct links (no dropdown)
 const TOP_LINKS = [
   { label: "News", href: "/news" },
   { label: "Events", href: "/events" },
@@ -62,13 +82,12 @@ export default function Navbar() {
             <Link href="/partner" className="hover:text-gold transition-colors">Partner With Us</Link>
           </div>
           <div className="flex items-center gap-4">
-            <span>jumuiya2@gmail.com</span>
+            <span>info@jumuiyafoundation.org</span>
             <span>+256 740 466701</span>
             <span className="w-px h-4 bg-white/20" />
-            <a href="https://facebook.com/jumuiyafoundation" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="hover:text-gold transition-colors"><Facebook className="w-3.5 h-3.5" /></a>
-            <a href="https://twitter.com/jumuiyadev" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter" className="hover:text-gold transition-colors"><Twitter className="w-3.5 h-3.5" /></a>
-            <a href="https://instagram.com/jumuiyafoundation" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:text-gold transition-colors"><Instagram className="w-3.5 h-3.5" /></a>
-            <a href="https://linkedin.com/company/jumuiya-development-foundation" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:text-gold transition-colors"><Linkedin className="w-3.5 h-3.5" /></a>
+            <a href="https://x.com/jumuiyaug" target="_blank" rel="noopener noreferrer" aria-label="X" className="hover:text-gold transition-colors"><XIcon /></a>
+            <a href="https://www.tiktok.com/@jumuiyaug" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="hover:text-gold transition-colors"><TikTokIcon /></a>
+            <a href="https://facebook.com/share/17tY3dmSVK" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="hover:text-gold transition-colors"><FacebookIcon /></a>
           </div>
         </div>
       )}
@@ -98,7 +117,6 @@ export default function Navbar() {
                 {key} <ChevronDown className="w-4 h-4" />
               </button>
               
-              {/* Dropdown - absolute positioned */}
               {activeDropdown === key && (
                 <div className="absolute top-full left-1/2 -translate-x-1/2 bg-white shadow-xl rounded-lg p-6 min-w-[200px] animate-in fade-in slide-in-from-top-2">
                   <div className="flex flex-col gap-3">
